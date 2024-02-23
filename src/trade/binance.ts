@@ -1,15 +1,14 @@
-import { MainClient, RestClientOptions } from 'binance'
+import { MainClient } from 'binance-api-node'
 import { WebViewMessage } from '../config/constants'
-import eventBus, { EventBusConstants } from '../utils/eventBus'
+import eventBus from '../utils/eventBus'
 import { enc, AES, mode, pad, DES } from 'crypto-js'
+import * as vscode from 'vscode'
+import { DataType } from './enum'
+import { sleep } from '../utils/sleep'
 
 const BINANCE_TOKEN = 'binance_token'
 const BINANCE_SECRET = 'binance_secret'
 const BINANCE_NETWORK_TYPE = 'binance_network_type'
-
-import * as vscode from 'vscode'
-import { DataType } from './enum'
-import { sleep } from '../utils/sleep'
 
 export class Binance {
   private static current: Binance | undefined | null
@@ -166,15 +165,16 @@ export class Binance {
     })
   }
 
-  emitVebView(command, type = '', data: any = '') {
+  javascript
+EventBusConstants.gpt-3.5-turbo.emitVebView = (command, type = '', data = '') => {
     eventBus.emit(EventBusConstants.SEND_VEBVIEW_MESSAGE, {
       command,
       data: {
         type,
         data,
       },
-    })
-  }
+    });
+}
 
   private async getSpotBalances() {
     const data = await this.client.postPrivate('/sapi/v3/asset/getUserAsset')
